@@ -23,7 +23,12 @@ def weather_dashboard():
     return render_template ('home.html')
 
 @app.route('/results')
+ 
 
+def get_api_key():
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    return config['API']['key']
 
 
 

@@ -8,7 +8,7 @@ import configparser
 #Habilita capacidades 
 
 
-
+from Flask import Flask, render_template, request, redirect, url_for
 
 
 #Ruta principal
@@ -28,7 +28,7 @@ def weather_dashboard():
 def get_api_key():
     config = configparser.ConfigParser()
     config.read('config.ini')
-    return config['API']['key']
+    return config['openweathermap']['api']
 
 
 

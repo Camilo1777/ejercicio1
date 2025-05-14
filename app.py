@@ -22,24 +22,33 @@ app = Flask(__name__)
 def weather_dashboard():
     return render_template ('home.html')
 
-@app.route('/results')
+@app.route('/results', methods=['POST'])
 def render_results():
     cityname  = request.form['cityname']
     
 
 
 # esta variable esta almacenando el valor de la api key    
-api = get_api_key();
+    api = get_api_key();
 
 
 #vamos a conectarlo al api y consumirla
 
-data = get_weather_results(cityname, api)
-#se toma la temperatura del json
-temp = "{0:.2f}".format(data['main']['temp'] - 273.15)
-    
+    data = get_weather_results(cityname, api)
 
-    return render_template('results.html', cityname=cityname, temp=temp, humidity=humidity, pressure=pressure, wind=wind, description=description, icon=icon)
+    #se toma la temperatura del json
+    temp = "{0:.2f}".format(data['main']['temp'])
+    feels_like = "{0:.2f}".format(data['main']['feels_like'])
+
+    weather= data['weather']['main']
+
+    location = data['name']
+    humidity = data['main']['humidity']
+
+#pintar el json de respuesta
+
+
+    return render_template('results.html', location=location, temp=temp,  feels_like=feels_like, weather= weather )
 
 def get_weather_results(cityname, api_key):
     url = "http://api.openweathermap.org/data/2.5/weather?q={}&appid={}".format(cityname, api_key)

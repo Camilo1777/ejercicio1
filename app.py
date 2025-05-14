@@ -11,7 +11,7 @@ import configparser
 
 
 
-
+#Ruta principal
 app = Flask(__name__)
 
 #Iniciamos con la logica de la aplicacion 
@@ -22,7 +22,7 @@ app = Flask(__name__)
 def weather_dashboard():
     return render_template ('home.html')
 
-
+@app.route('/results')
 
 
 

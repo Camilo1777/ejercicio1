@@ -23,14 +23,27 @@ def weather_dashboard():
     return render_template ('home.html')
 
 @app.route('/results')
- 
+def render_results():
+    cityname  = request.form['cityname']
+    
 
+
+# esta variable esta almacenando el valor de la api key    
+api = get_api_key();
+
+#vamos a conectarlo al api y consumirla
+
+data = get_weather_results(cityname, api)
+
+def get_weather_results(cityname, api_key):
+    url = "http://api.openweathermap.org/data/2.5/weather?q={}&appid={}'.format(cityname, api_key)
+    r = requests.get(url)
+    return r.json()
+   
 def get_api_key():
     config = configparser.ConfigParser()
     config.read('config.ini')
     return config['openweathermap']['api']
-
-
 
 
 
